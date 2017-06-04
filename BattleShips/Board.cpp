@@ -91,3 +91,16 @@ void Board::generate()
 		}
 	}
 }
+
+void Board::reveal(int x, int y)
+{
+	if (f[y][x])fVisible[y][x] = 'X';
+	else fVisible[y][x] = 'O';
+}
+
+void Board::revealAdj(int x, int y)
+{
+	for (int i = (x - 1 < 0 ? 0 : x - 1); i <= (x + 1 < Xsize ? x + 1 : Xsize); i++)
+		for (int j = (y - 1 < 0 ? 0 : y - 1); j <= (y + 1 < Ysize ? y + 1 : Ysize); j++)
+			reveal(i, j);
+}
