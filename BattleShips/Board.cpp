@@ -3,7 +3,9 @@
 #include <ctime>
 using namespace std;
 
-Board::Board() {
+
+Board::Board()
+{
 	for (int i = 0; i < 9; i++)
 	{
 		f[i][0] = i;
@@ -21,7 +23,8 @@ Board::Board() {
 	}
 }
 
-void Board::display() {
+void Board::display()
+{
 	for (int i = 0; i < 9; i++)
 	{
 		for (int j = 0; j < 9; j++)
@@ -33,7 +36,8 @@ void Board::display() {
 	cout << endl;
 }
 
-void Board::displayVisible() {
+void Board::displayVisible()
+{
 	for (int i = 0; i < 9; i++)
 	{
 		for (int j = 0; j < 9; j++)
@@ -44,7 +48,8 @@ void Board::displayVisible() {
 	}
 }
 
-void Board::generate() {
+void Board::generate()
+{
 	//destroyer - 2
 	srand(time(NULL));
 	int random;
@@ -85,5 +90,4 @@ void Board::generate() {
 			break;
 		}
 	}
-
 }

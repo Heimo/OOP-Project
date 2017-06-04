@@ -1,4 +1,5 @@
 #pragma once
+
 class Board {
 private:
 	int f[9][9];
