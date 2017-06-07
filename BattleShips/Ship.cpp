@@ -55,3 +55,8 @@ bool Ship::isDestroyed() const
 {
 	return destroyed;
 }
+
+int Ship::getSize() const
+{
+	return size;
+}

@@ -1,6 +1,6 @@
 #pragma once
 #include<iostream>
-enum Type {Destroyer, Submarine, Cruiser, Battleship, Carrier };
+enum Type {Destroyer=1, Submarine, Cruiser, Battleship, Carrier };
 
 class Ship {
 private:
@@ -14,4 +14,5 @@ public:
 	Ship operator=(Ship& s);
 	void destroy();
 	bool isDestroyed()const;
+	int getSize()const;
 };

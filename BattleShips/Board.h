@@ -1,6 +1,8 @@
 #pragma once
+#include"Ship.h"
 #define Xsize 9
 #define Ysize 9
+enum Direction {LEFT=1,UP,RIGHT,DOWN};
 class Board {
 private:
 	int f[Xsize][Ysize];
@@ -9,7 +11,7 @@ public:
 	Board();
 	void display();
 	void displayVisible();
-	void generate(int);
+	void generate(int,Type);
 	void reveal(int, int);
 	void revealAdj(int, int);
 

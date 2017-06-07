@@ -1,7 +1,6 @@
 #include "Board.h"
 #include <iostream>
 #include <ctime>
-#include"Ship.h"
 using namespace std;
 
 
@@ -9,8 +8,8 @@ Board::Board()
 {
 	for (int i = 0; i < 9; i++)
 	{
-		f[i][0] = i;
-		f[0][i] = i;
+		f[i][0] = 6;
+		f[0][i] = 6;
 		fVisible[i][0] = 48 + i;
 		fVisible[0][i] = 48 + i;
 	}
@@ -49,7 +48,7 @@ void Board::displayVisible()
 	}
 }
 
-void Board::generate(int size)
+void Board::generate(int size,Type t)
 {/*
 	//destroyer - 2
 	srand(time(NULL));
@@ -91,93 +90,127 @@ void Board::generate(int size)
 			break;
 		}
 	}*/
-	srand(time(NULL));
-	int random, random2, count;
+	int random, count; 
+	Direction dir, initDir;
 	while (true) {
+		initDir = (Direction)(int)(rand() % 2 + 1);
+		bool bUP = 1, bDOWN = 1, bLEFT = 1, bRIGHT = 1;
 		count = size;
 		random = rand() % (8 * 8) + 1;
-		random2 = rand() % 2 + 1;
-		//int* tempship[5];
+		dir = initDir;
 		if (f[random / 8][random % 8] == 0) {
+			f[random / 8][random % 8] = 9;
+			cout <<"Trying with: " <<random % 8 << " " << random /8 <<" dir:"<<initDir<< endl;
 			count--;
 			for (int i = 1; i < size; i++) {
+				if (dir == UP || dir == DOWN) {
+					cout << random % 8 << " " << (random / 8 - i > 1 ? random / 8 - i : 1) << " " << f[random / 8 - i > 1 ? random / 8 - i : 1][random % 8] << endl;
+					cout << random % 8 << " " << (random / 8 + i < Xsize ? random / 8 + i : Xsize) << " " << f[random / 8 + i < Xsize ? random / 8 + i : Xsize][random % 8] << endl;
+				}
+				if (dir == LEFT || dir == RIGHT) {
+					cout << (random % 8 - i > 1 ? random % 8 - i : 1) << " " << random / 8 << " " << f[random / 8][random % 8 - i > 1 ? random % 8 - i : 1] << endl;
+					cout << (random % 8 + i < Xsize ? random % 8 + i : Xsize) << " " << random / 8 << " " << f[random / 8][random % 8 + i < Xsize ? random % 8 + i : Xsize] << endl;
+				}
+
 				if (count <= 0)break;
 				//1-left 3-right 2-up 4-down
-				if (random2 == 1) {
-					if (f[random / 8][random % 8 - i > 1 ? random % 8 - i : 1] == 0) {
-						cout << "left" << endl;
-						count--;
-						random2 = 3;
+				if (dir == LEFT) {
+					if (bLEFT) {
+						if (random % 8 - i > 0) {
+							if (f[random / 8][random % 8 - i] == 0) {
+								f[random / 8][random % 8 - i] = 9;
+								cout << "left" << endl;
+								count--;
+								dir = RIGHT;
+							}
+							else bLEFT = false;
+						}
+						else bLEFT = false;
+						dir = RIGHT;
 					}
+					else dir = RIGHT;
 				}
-				if (random2 == 3) {
-					cout << "right" << endl;
-					if (f[random / 8][random % 8 + i < Xsize ? random % 8 + i : Xsize] == 0) {
-						count--;
-						random2 = 1;
+
+				if (count <= 0)break;
+
+				if (dir == RIGHT) {
+					if (bRIGHT) {
+						if (random % 8 + i < Ysize) {
+							if (f[random / 8][random % 8 + i] == 0) {
+								f[random / 8][random % 8 + i] = 9;
+								cout << "right" << endl;
+								count--;
+								dir = LEFT;
+							}
+							else bRIGHT = false;
+						}
+						else bRIGHT = false;
+						dir = LEFT;
 					}
+					else dir = LEFT;
 				}
-				if (random2 == 2) {
-					if (f[random / 8 - i > 1 ? random / 8 - i : 1][random % 8] == 0) {
-						cout << "up" << endl;
-						count--;
-						random2 = 4;
+
+				if (count <= 0)break;
+
+				if (dir == UP && bUP) {
+					if (bUP) {
+						if (random / 8 - i > 0) {
+							if (f[random / 8 - i][random % 8] == 0) {
+								f[random / 8 - i][random % 8] = 9;
+								cout << "up" << endl;
+								count--;
+								dir = DOWN;
+							}
+							else bUP = false;
+						}
+						else bUP = false;
+						dir = DOWN;
 					}
+					else dir = DOWN;
 				}
-				if (random2 == 4) {
-					//cout << random % 8 << " " << (random / 8 + i < Xsize ? random / 8 + i : Xsize) << " " << f[random / 8 + i < Xsize ? random / 8 + i : Xsize][random % 8] << endl;
-					if (f[random / 8 + i < Xsize ? random / 8 + i : Xsize][random % 8] == 0) {
-						cout << "down" << endl;
-						count--;
-						random2 = 2;
+
+				if (count <= 0)break;
+
+				if (dir == DOWN && bDOWN) {
+					if (bDOWN) {
+						if (random / 8 + i < Xsize) {
+							if (f[random / 8 + i][random % 8] == 0) {
+								f[random / 8 + i][random % 8] = 9;
+								cout << "down" << endl;
+								count--;
+								dir = UP;
+							}
+							else bDOWN = false;
+						}
+						else bDOWN = false;
+						dir = UP;
 					}
+					else dir = UP;
 				}
 			}
 
-			if (count <= 0) {
-				count = size;
-				if (f[random / 8][random % 8] == 0) {
-					cout << random % 8 << " " << random / 8 << endl;
-					count--;
-					f[random / 8][random % 8] = 1;
-					for (int i = 1; i <size; i++) {
-						if (count <= 0)break;
-						//1-left 3-right 2-up 4-down
-						if (random2 == 1) {
-							if (f[random / 8][random % 8 - i >= 1 ? random % 8 - i : 1] == 0) {
-								f[random / 8][random % 8 - i >= 1 ? random % 8 - i : 1] = 1;
-								count--;
-							}
-							random2 = 3;
-						}
-						if (random2 == 3) {
-							if (f[random / 8][random % 8 + i < Xsize ? random % 8 + i : Xsize] == 0) {
-								f[random / 8][random % 8 + i < Xsize ? random % 8 + i : Xsize] = 1;
-								count--;
-							}
-							random2 = 1;
-						}
-						if (random2 == 2) {
-							if (f[random / 8 - i > 1 ? random / 8 - i : 1][random % 8] == 0) {
-								f[random / 8 - i > 1 ? random / 8 - i : 1][random % 8] = 1;
-								count--;
-							}
-							random2 = 4;
-						}
-						if (random2 == 4) {
-							if (f[random / 8 + i < Xsize ? random / 8 + i : Xsize][random % 8] == 0) {
-								f[random / 8 + i < Xsize ? random / 8 + i : Xsize][random % 8] = 1;
-								count--;
-							}
-							random2 = 2;
-						}
 
+			if (count <= 0) {
+				for (int i = 0; i < 9; i++)
+				{
+					for (int j = 0; j < 9; j++)
+					{
+						if (f[i][j] == 9)f[i][j] = t;
 					}
-					
 				}
-			
-				cout << "maybe" << endl;
+
+				cout << "done with "<<t << endl;
 				break;
+			}
+			else {
+				for (int i = 0; i < 9; i++)
+				{
+					for (int j = 0; j < 9; j++)
+					{
+						if (f[i][j] == 9)f[i][j] = 0;
+					}
+				}
+				cout << "NOPE" << endl;
 			}
 		}
 	}

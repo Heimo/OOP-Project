@@ -1,19 +1,25 @@
 #include "Player.h"
+#include <ctime>
 
 Player::Player()
 {
-	board.generate(5);
-	addShip(Destroyer);
-	addShip(Submarine);
-	addShip(Cruiser);
-	addShip(Battleship);
+	srand(time(NULL));
 	addShip(Carrier);
+	board.display();
+	addShip(Battleship);
+	board.display();
+	addShip(Cruiser);
+	board.display();
+	addShip(Submarine);
+	board.display();
+	addShip(Destroyer);
 }
 
 void Player::addShip(Type t)
 {
 	shipCount++;
 	ships[shipCount] = Ship(t);
+	board.generate(ships[shipCount].getSize(), t);
 	
 }
 
