@@ -1,5 +1,12 @@
 #include "Ship.h"
 
+Ship::Ship()
+{
+	destroyed = 0;
+	size = 0;
+	hp = 0;
+}
+
 Ship::Ship(Type _type)
 {
 	switch (_type) {
@@ -30,6 +37,13 @@ Ship::Ship(Type _type)
 		break;
 	}
 	destroyed = 0;
+}
+
+Ship Ship::operator=(Ship & s)
+{
+	this->hp = s.hp;
+	this->size = s.size;
+	return *this;
 }
 
 void Ship::destroy()

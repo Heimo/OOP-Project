@@ -1,6 +1,7 @@
 #include "Board.h"
 #include <iostream>
 #include <ctime>
+#include"Ship.h"
 using namespace std;
 
 
@@ -48,8 +49,8 @@ void Board::displayVisible()
 	}
 }
 
-void Board::generate()
-{
+void Board::generate(int size)
+{/*
 	//destroyer - 2
 	srand(time(NULL));
 	int random;
@@ -88,6 +89,96 @@ void Board::generate()
 				break;
 			}
 			break;
+		}
+	}*/
+	srand(time(NULL));
+	int random, random2, count;
+	while (true) {
+		count = size;
+		random = rand() % (8 * 8) + 1;
+		random2 = rand() % 2 + 1;
+		//int* tempship[5];
+		if (f[random / 8][random % 8] == 0) {
+			count--;
+			for (int i = 1; i < size; i++) {
+				if (count <= 0)break;
+				//1-left 3-right 2-up 4-down
+				if (random2 == 1) {
+					if (f[random / 8][random % 8 - i > 1 ? random % 8 - i : 1] == 0) {
+						cout << "left" << endl;
+						count--;
+						random2 = 3;
+					}
+				}
+				if (random2 == 3) {
+					cout << "right" << endl;
+					if (f[random / 8][random % 8 + i < Xsize ? random % 8 + i : Xsize] == 0) {
+						count--;
+						random2 = 1;
+					}
+				}
+				if (random2 == 2) {
+					if (f[random / 8 - i > 1 ? random / 8 - i : 1][random % 8] == 0) {
+						cout << "up" << endl;
+						count--;
+						random2 = 4;
+					}
+				}
+				if (random2 == 4) {
+					//cout << random % 8 << " " << (random / 8 + i < Xsize ? random / 8 + i : Xsize) << " " << f[random / 8 + i < Xsize ? random / 8 + i : Xsize][random % 8] << endl;
+					if (f[random / 8 + i < Xsize ? random / 8 + i : Xsize][random % 8] == 0) {
+						cout << "down" << endl;
+						count--;
+						random2 = 2;
+					}
+				}
+			}
+
+			if (count <= 0) {
+				count = size;
+				if (f[random / 8][random % 8] == 0) {
+					cout << random % 8 << " " << random / 8 << endl;
+					count--;
+					f[random / 8][random % 8] = 1;
+					for (int i = 1; i <size; i++) {
+						if (count <= 0)break;
+						//1-left 3-right 2-up 4-down
+						if (random2 == 1) {
+							if (f[random / 8][random % 8 - i >= 1 ? random % 8 - i : 1] == 0) {
+								f[random / 8][random % 8 - i >= 1 ? random % 8 - i : 1] = 1;
+								count--;
+							}
+							random2 = 3;
+						}
+						if (random2 == 3) {
+							if (f[random / 8][random % 8 + i < Xsize ? random % 8 + i : Xsize] == 0) {
+								f[random / 8][random % 8 + i < Xsize ? random % 8 + i : Xsize] = 1;
+								count--;
+							}
+							random2 = 1;
+						}
+						if (random2 == 2) {
+							if (f[random / 8 - i > 1 ? random / 8 - i : 1][random % 8] == 0) {
+								f[random / 8 - i > 1 ? random / 8 - i : 1][random % 8] = 1;
+								count--;
+							}
+							random2 = 4;
+						}
+						if (random2 == 4) {
+							if (f[random / 8 + i < Xsize ? random / 8 + i : Xsize][random % 8] == 0) {
+								f[random / 8 + i < Xsize ? random / 8 + i : Xsize][random % 8] = 1;
+								count--;
+							}
+							random2 = 2;
+						}
+
+					}
+					
+				}
+			
+				cout << "maybe" << endl;
+				break;
+			}
 		}
 	}
 }

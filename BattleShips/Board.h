@@ -9,7 +9,7 @@ public:
 	Board();
 	void display();
 	void displayVisible();
-	void generate();
+	void generate(int);
 	void reveal(int, int);
 	void revealAdj(int, int);
 
