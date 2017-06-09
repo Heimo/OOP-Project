@@ -14,5 +14,6 @@ public:
 	void generate(int,Type);
 	void reveal(int, int);
 	void revealAdj(int, int);
+	void displayLine(int);
 
 };

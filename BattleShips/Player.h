@@ -5,11 +5,13 @@
 class Player {
 	Board board;
 	Ship ships[5];
-	int shipCount = -1;
+	int shipCount;
 public:
 	Player();
 	void addShip(Type);
 	void showBoard();
 	void showEntireBoard();
-	void reveal(int, int);
+	virtual void reveal(int,int);
+	int showAvailableShips();
+	void showLine(int);
 };

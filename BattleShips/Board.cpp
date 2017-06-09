@@ -100,17 +100,17 @@ void Board::generate(int size,Type t)
 		dir = initDir;
 		if (f[random / 8][random % 8] == 0) {
 			f[random / 8][random % 8] = 9;
-			cout <<"Trying with: " <<random % 8 << " " << random /8 <<" dir:"<<initDir<< endl;
+			//cout <<"Trying with: " <<random % 8 << " " << random /8 <<" dir:"<<initDir<< endl;
 			count--;
 			for (int i = 1; i < size; i++) {
-				if (dir == UP || dir == DOWN) {
+				/*if (dir == UP || dir == DOWN) {
 					cout << random % 8 << " " << (random / 8 - i > 1 ? random / 8 - i : 1) << " " << f[random / 8 - i > 1 ? random / 8 - i : 1][random % 8] << endl;
 					cout << random % 8 << " " << (random / 8 + i < Xsize ? random / 8 + i : Xsize) << " " << f[random / 8 + i < Xsize ? random / 8 + i : Xsize][random % 8] << endl;
 				}
 				if (dir == LEFT || dir == RIGHT) {
 					cout << (random % 8 - i > 1 ? random % 8 - i : 1) << " " << random / 8 << " " << f[random / 8][random % 8 - i > 1 ? random % 8 - i : 1] << endl;
 					cout << (random % 8 + i < Xsize ? random % 8 + i : Xsize) << " " << random / 8 << " " << f[random / 8][random % 8 + i < Xsize ? random % 8 + i : Xsize] << endl;
-				}
+				}*/
 
 				if (count <= 0)break;
 				//1-left 3-right 2-up 4-down
@@ -119,7 +119,7 @@ void Board::generate(int size,Type t)
 						if (random % 8 - i > 0) {
 							if (f[random / 8][random % 8 - i] == 0) {
 								f[random / 8][random % 8 - i] = 9;
-								cout << "left" << endl;
+								//cout << "left" << endl;
 								count--;
 								dir = RIGHT;
 							}
@@ -138,7 +138,7 @@ void Board::generate(int size,Type t)
 						if (random % 8 + i < Ysize) {
 							if (f[random / 8][random % 8 + i] == 0) {
 								f[random / 8][random % 8 + i] = 9;
-								cout << "right" << endl;
+								//cout << "right" << endl;
 								count--;
 								dir = LEFT;
 							}
@@ -157,7 +157,7 @@ void Board::generate(int size,Type t)
 						if (random / 8 - i > 0) {
 							if (f[random / 8 - i][random % 8] == 0) {
 								f[random / 8 - i][random % 8] = 9;
-								cout << "up" << endl;
+								//cout << "up" << endl;
 								count--;
 								dir = DOWN;
 							}
@@ -176,7 +176,7 @@ void Board::generate(int size,Type t)
 						if (random / 8 + i < Xsize) {
 							if (f[random / 8 + i][random % 8] == 0) {
 								f[random / 8 + i][random % 8] = 9;
-								cout << "down" << endl;
+								//cout << "down" << endl;
 								count--;
 								dir = UP;
 							}
@@ -199,7 +199,7 @@ void Board::generate(int size,Type t)
 					}
 				}
 
-				cout << "done with "<<t << endl;
+				//cout << "done with "<<t << endl;
 				break;
 			}
 			else {
@@ -210,7 +210,7 @@ void Board::generate(int size,Type t)
 						if (f[i][j] == 9)f[i][j] = 0;
 					}
 				}
-				cout << "NOPE" << endl;
+				//cout << "NOPE" << endl;
 			}
 		}
 	}
@@ -218,6 +218,22 @@ void Board::generate(int size,Type t)
 
 void Board::reveal(int x, int y)
 {
+	/*
+	if (t == Destroyer) {
+	
+	}
+	else if (t == Submarine) {
+
+	}
+	else if (t == Cruiser) {
+
+	}
+	else if (t == Battleship) {
+
+	}
+	else if (t == Carrier) {
+
+	}*/
 	if (f[y][x])fVisible[y][x] = 'X';
 	else fVisible[y][x] = 'O';
 }
@@ -228,3 +244,11 @@ void Board::revealAdj(int x, int y)
 		for (int j = (y - 1 < 0 ? 0 : y - 1); j <= (y + 1 < Ysize ? y + 1 : Ysize); j++)
 			reveal(i, j);
 }
+
+void Board::displayLine(int l)
+{
+	for (int i = 0; i < Xsize; i++) {
+		cout << fVisible[l][i] << " ";
+	}
+	}
+

@@ -1,4 +1,6 @@
 #include "Ship.h"
+#include<iostream>
+using namespace std;
 
 Ship::Ship()
 {
@@ -43,6 +45,7 @@ Ship Ship::operator=(Ship & s)
 {
 	this->hp = s.hp;
 	this->size = s.size;
+	this->type = s.type;
 	return *this;
 }
 
@@ -59,4 +62,14 @@ bool Ship::isDestroyed() const
 int Ship::getSize() const
 {
 	return size;
+}
+
+void Ship::Cout()
+{
+	cout << hp << " " << size << " " << type << " " << destroyed << endl;
+}
+
+Type Ship::getType() const
+{
+	return type;
 }

@@ -15,4 +15,6 @@ public:
 	void destroy();
 	bool isDestroyed()const;
 	int getSize()const;
+	void Cout();
+	Type getType()const;
 };
