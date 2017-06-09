@@ -8,6 +8,7 @@ private:
 	int size;
 	Type type;
 	bool destroyed;
+	int wait;
 public:
 	Ship();
 	Ship(Type);
@@ -17,4 +18,6 @@ public:
 	int getSize()const;
 	void Cout();
 	Type getType()const;
+	void setWait(int w);
+	int getWait()const;
 };

@@ -12,8 +12,9 @@ public:
 	void display();
 	void displayVisible();
 	void generate(int,Type);
-	void reveal(int, int);
+	int check(int, int);
 	void revealAdj(int, int);
 	void displayLine(int);
+	void setVisible(int,int,char);
 
 };

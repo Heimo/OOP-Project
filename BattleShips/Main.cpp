@@ -3,39 +3,43 @@
 #include "Ship.h"
 #include"Player.h"
 #include"AI.h"
-#include "Main.h"
 using namespace std;
 
 enum GameState {STARTUP,PLAYER_TURN,AI_TURN,PLAYER_WIN,AI_WIN};
 
-void drawGame(Player p, AI ai) {
+void drawGame(Player& p, Player& p2) {
 	cout << "Your Board:            AI Board:" << endl;
 	for (int i = 0; i < Ysize; i++) {
 		p.showLine(i);
 		cout << "     ";
-		ai.showLine(i);
+		p2.showLine(i);
 		cout << endl;
 	}
 }
+void drawGame2(Player*p, Player&p2) {
+	cout << "Your Board:            AI Board:" << endl;
+	for (int i = 0; i < Ysize; i++) {
+		p2.showLine(i);
+		cout << "     ";
+		p->showLine(i);
+		cout << endl;
+	}
+}
+
 
 int main()
 {
 	GameState state = STARTUP;
 	Player p;
 	AI ai;
+	//Player aia = &ai;
 	state = PLAYER_TURN;
 	srand(time(NULL));
 	while (true) {
 		if (state == PLAYER_TURN) {
 			system("CLS");
 			drawGame(p, ai);
-			p.showAvailableShips();
-			int shipn,x,y;
-			cin >> shipn;
-			cout << "Select coordinates:" << endl;
-			cin >> x >> y;
-			cout << "shooting " << x << "," << y << endl;
-			ai.reveal(x,y);
+			p.attack(ai);
 			system("CLS");
 			drawGame(p, ai);
 			cout <<endl<< "AI's turn to attack" << endl;
@@ -46,7 +50,7 @@ int main()
 		if (state == AI_TURN) {
 			system("CLS");
 			drawGame(p, ai);
-			p.reveal(rand()%8+1, rand() % 8 + 1);
+			//p.reveal(rand()%8+1, rand() % 8 + 1);
 			system("CLS");
 			drawGame(p, ai);
 			cout <<endl<< "Player's turn to attack" << endl;

@@ -11,7 +11,7 @@ public:
 	void addShip(Type);
 	void showBoard();
 	void showEntireBoard();
-	virtual void reveal(int,int);
-	int showAvailableShips();
+	virtual void reveal(int,int,Type,Player&);
+	int attack(Player&);
 	void showLine(int);
 };

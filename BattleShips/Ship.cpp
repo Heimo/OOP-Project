@@ -39,6 +39,7 @@ Ship::Ship(Type _type)
 		break;
 	}
 	destroyed = 0;
+	wait = 0;
 }
 
 Ship Ship::operator=(Ship & s)
@@ -46,6 +47,7 @@ Ship Ship::operator=(Ship & s)
 	this->hp = s.hp;
 	this->size = s.size;
 	this->type = s.type;
+	this->wait = s.wait;
 	return *this;
 }
 
@@ -72,4 +74,14 @@ void Ship::Cout()
 Type Ship::getType() const
 {
 	return type;
+}
+
+void Ship::setWait(int w)
+{
+	wait = w;
+}
+
+int Ship::getWait() const
+{
+	return wait;
 }

@@ -216,33 +216,18 @@ void Board::generate(int size,Type t)
 	}
 }
 
-void Board::reveal(int x, int y)
+
+int Board::check(int x, int y)
 {
-	/*
-	if (t == Destroyer) {
+	return f[y][x];
 	
-	}
-	else if (t == Submarine) {
-
-	}
-	else if (t == Cruiser) {
-
-	}
-	else if (t == Battleship) {
-
-	}
-	else if (t == Carrier) {
-
-	}*/
-	if (f[y][x])fVisible[y][x] = 'X';
-	else fVisible[y][x] = 'O';
 }
 
 void Board::revealAdj(int x, int y)
 {
-	for (int i = (x - 1 < 0 ? 0 : x - 1); i <= (x + 1 < Xsize ? x + 1 : Xsize); i++)
+	/*for (int i = (x - 1 < 0 ? 0 : x - 1); i <= (x + 1 < Xsize ? x + 1 : Xsize); i++)
 		for (int j = (y - 1 < 0 ? 0 : y - 1); j <= (y + 1 < Ysize ? y + 1 : Ysize); j++)
-			reveal(i, j);
+			reveal(i, j);*/
 }
 
 void Board::displayLine(int l)
@@ -251,4 +236,9 @@ void Board::displayLine(int l)
 		cout << fVisible[l][i] << " ";
 	}
 	}
+
+void Board::setVisible(int x,int y,char c)
+{
+	fVisible[y][x] = c;
+}
 
