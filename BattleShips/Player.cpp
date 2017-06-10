@@ -17,6 +17,7 @@ Player::Player()
 	addShip(Submarine);
 	//board.display();
 	addShip(Destroyer);
+	effect = NONE;
 }
 
 void Player::addShip(Type t)
@@ -37,37 +38,34 @@ void Player::showEntireBoard()
 	board.display();
 }
 
-void Player::reveal(int x, int y,Type t,Player&p)
+void Player::reveal(int x, int y,Type t,Player&p,int i)
 {
 	if (t == Destroyer) {
-		if (board.check(x, y))board.setVisible(x,y,'X');
-		else board.setVisible(x, y, 'O');
+		if(board.setVisible(x, y, board.check(x, y),effect))ships[i].setHp(-1);
+		p.setEffect(SHIELD);
 	}
 	else if (t == Submarine) {
-		if (board.check(x, y))board.setVisible(x, y, 'X');
-		else board.setVisible(x, y, 'O');
+		if (board.setVisible(x, y, board.check(x, y), effect))ships[i].setHp(-1);
+		setEffect(HIGH_MISS);
 	}
 	else if (t == Cruiser) {
-		if (board.check(x, y))board.setVisible(x, y, 'X');
-		else board.setVisible(x, y, 'O');
+		if (board.setVisible(x, y, board.check(x, y), effect))ships[i].setHp(-1);
+		p.setEffect(HEAL);
 	}
 	else if (t == Battleship) {
-		for (int i = (x - 1 < 0 ? 0 : x - 1); i <= (x + 1 < Xsize ? x + 1 : Xsize); i++)
-			for (int j = (y - 1 < 0 ? 0 : y - 1); j <= (y + 1 < Ysize ? y + 1 : Ysize); j++)
-				if (board.check(i, j) != 0 && board.check(i, j) != 6)board.setVisible(x, y, 'X');
-				else board.setVisible(x, y, 'O');
+		for (int i = (x - 1 < 1 ? 1 : x - 1); i <= (x + 1 < Xsize ? x + 1 : Xsize); i++)
+			for (int j = (y - 1 < 1 ? 1 : y - 1); j <= (y + 1 < Ysize ? y + 1 : Ysize); j++)
+				if (board.setVisible(i, j, board.check(i, j), effect))ships[i].setHp(-1);
 	}
 	else if (t == Carrier) {
-		if (board.check(x, y))board.setVisible(x, y, 'X');
-		else board.setVisible(x, y, 'O');
+		if (board.setVisible(x, y, board.check(x, y), effect))ships[i].setHp(-1);
 		system("CLS");
 		drawGame2(this,p);
 		cout << "Shoot again:" << endl;
 		cin >> x >> y;
-		if (board.check(x, y))board.setVisible(x, y, 'X');
-		else board.setVisible(x, y, 'O');
+		if (board.setVisible(x, y, board.check(x, y), effect))ships[i].setHp(-1);
 	}
-	
+
 }
 
 int Player::attack(Player &p)
@@ -115,7 +113,7 @@ int Player::attack(Player &p)
 		if (!ships[i].isDestroyed()) {
 			num++;
 			if (num == select) {
-				p.reveal(x, y, ships[i].getType(),*this);
+				p.reveal(x, y, ships[i].getType(),*this,i);
 				i2 = i;
 			}
 		}
@@ -127,6 +125,21 @@ int Player::attack(Player &p)
 void Player::showLine(int l)
 {
 	board.displayLine(l);
+}
+
+void Player::setEffect(Effect e)
+{
+	effect = e;
+}
+
+Effect Player::getEffect() const
+{
+	return effect;
+}
+
+int Player::getShipCount() const
+{
+	return shipCount;
 }
 
 

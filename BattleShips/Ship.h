@@ -20,4 +20,5 @@ public:
 	Type getType()const;
 	void setWait(int w);
 	int getWait()const;
+	void setHp(int);
 };

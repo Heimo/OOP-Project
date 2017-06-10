@@ -45,6 +45,7 @@ int main()
 			cout <<endl<< "AI's turn to attack" << endl;
 			system("pause");
 			state = AI_TURN;
+			if (p.getShipCount() == 0)state = AI_WIN;
 		}
 
 		if (state == AI_TURN) {
@@ -56,7 +57,17 @@ int main()
 			cout <<endl<< "Player's turn to attack" << endl;
 			system("pause");
 			state = PLAYER_TURN;
+			if (ai.getShipCount() == 0)state = AI_WIN;
 
+		}
+
+		if (state == AI_WIN) {
+			cout << "You lost. The computer won." << endl;
+			break;
+		}
+		if (state == PLAYER_WIN) {
+			cout << "You won. The computer lost." << endl;
+			break;
 		}
 	}
 

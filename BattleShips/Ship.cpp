@@ -85,3 +85,12 @@ int Ship::getWait() const
 {
 	return wait;
 }
+
+void Ship::setHp(int _hp)
+{
+	hp += _hp;
+	if (hp == 0) {
+		destroy();
+		cout << "Destroyed" << type << endl;
+	}
+}

@@ -1,6 +1,8 @@
 #include "Board.h"
 #include <iostream>
 #include <ctime>
+
+//#include"Player.h"
 using namespace std;
 
 
@@ -237,8 +239,25 @@ void Board::displayLine(int l)
 	}
 	}
 
-void Board::setVisible(int x,int y,char c)
+bool Board::setVisible(int x,int y,int t,Effect e)
 {
-	fVisible[y][x] = c;
+	bool b = true;
+	if (t != 0 && t != 6) {
+		fVisible[y][x] = 'X';
+		if (e == SHIELD) {
+			fVisible[y][x] = '@';
+			b = false;
+		}
+	}
+	else {
+		fVisible[y][x] = 'O';
+		b = false;
+	}
+	if (e == HIGH_MISS && (rand() % 100) > 29) {
+		fVisible[y][x] = '@';
+		b = false;
+	}
+	if (t == Carrier) {}
+	return b;
 }
 

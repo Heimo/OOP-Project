@@ -3,6 +3,7 @@
 #define Xsize 9
 #define Ysize 9
 enum Direction {LEFT=1,UP,RIGHT,DOWN};
+enum Effect { NONE, HEAL, HIGH_MISS, SHIELD };
 class Board {
 private:
 	int f[Xsize][Ysize];
@@ -15,6 +16,5 @@ public:
 	int check(int, int);
 	void revealAdj(int, int);
 	void displayLine(int);
-	void setVisible(int,int,char);
-
+	bool setVisible(int, int, int,Effect);
 };
