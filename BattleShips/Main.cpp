@@ -1,7 +1,6 @@
 #include <iostream>
 #include "Board.h"
 #include "Ship.h"
-#include"Player.h"
 #include"AI.h"
 using namespace std;
 
@@ -37,38 +36,52 @@ int main()
 	srand(time(NULL));
 	while (true) {
 		if (state == PLAYER_TURN) {
+			p.updateWait();
 			system("CLS");
 			drawGame(p, ai);
 			p.attack(ai);
+			if (ai.getShipCount()+1 == 0)state = PLAYER_WIN;
+			else {
+				system("CLS");
+				drawGame(p, ai);
+				cout << endl << "AI's turn to attack" << endl;
+				system("pause");
+				state = AI_TURN;
+			}
+			ai.healEffect();
+			ai.setEffect(NONE);
+		}else if (state == AI_TURN) {
+			ai.updateWait();
 			system("CLS");
 			drawGame(p, ai);
-			cout <<endl<< "AI's turn to attack" << endl;
-			system("pause");
-			state = AI_TURN;
-			if (p.getShipCount() == 0)state = AI_WIN;
-		}
-
-		if (state == AI_TURN) {
-			system("CLS");
-			drawGame(p, ai);
-			//p.reveal(rand()%8+1, rand() % 8 + 1);
-			system("CLS");
-			drawGame(p, ai);
-			cout <<endl<< "Player's turn to attack" << endl;
-			system("pause");
-			state = PLAYER_TURN;
-			if (ai.getShipCount() == 0)state = AI_WIN;
-
+			ai.attack(p);
+			
+			if (p.getShipCount()+1 == 0)state = AI_WIN;
+			else {
+				system("CLS");
+				drawGame(p, ai);
+				cout << endl << "Player's turn to attack" << endl;
+				system("pause");
+				state = PLAYER_TURN;
+			}
+			p.healEffect();
+			p.setEffect(NONE);
 		}
 
 		if (state == AI_WIN) {
+			system("CLS");
+			drawGame(p, ai);
 			cout << "You lost. The computer won." << endl;
 			break;
 		}
 		if (state == PLAYER_WIN) {
+			system("CLS");
+			drawGame(p, ai);
 			cout << "You won. The computer lost." << endl;
 			break;
 		}
+
+		
 	}
 
 	system("pause");

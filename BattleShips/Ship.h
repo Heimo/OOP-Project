@@ -2,6 +2,8 @@
 #include<iostream>
 enum Type {Destroyer=1, Submarine, Cruiser, Battleship, Carrier };
 
+void coutName(Type);
+
 class Ship {
 private:
 	int hp;
@@ -20,5 +22,5 @@ public:
 	Type getType()const;
 	void setWait(int w);
 	int getWait()const;
-	void setHp(int);
+	bool setHp(int);
 };

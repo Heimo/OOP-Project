@@ -1,6 +1,29 @@
 #include "Ship.h"
-#include<iostream>
+#include"Main.h"
 using namespace std;
+
+void coutName(Type t)
+{
+	{
+		switch (t) {
+		case Destroyer:
+			cout << "Destroyer";
+			break;
+		case Submarine:
+			cout << "Submarine";
+			break;
+		case Cruiser:
+			cout << "Cruiser";
+			break;
+		case Battleship:
+			cout << "Battleship";
+			break;
+		case Carrier:
+			cout << "Carrier";
+			break;
+		}
+	}
+}
 
 Ship::Ship()
 {
@@ -78,7 +101,7 @@ Type Ship::getType() const
 
 void Ship::setWait(int w)
 {
-	wait = w;
+		wait += w;
 }
 
 int Ship::getWait() const
@@ -86,11 +109,15 @@ int Ship::getWait() const
 	return wait;
 }
 
-void Ship::setHp(int _hp)
+bool Ship::setHp(int _hp)
 {
-	hp += _hp;
+	if(hp!=0)hp += _hp;
 	if (hp == 0) {
 		destroy();
-		cout << "Destroyed" << type << endl;
+		cout << "Sunk "; coutName(type);cout<< endl;
+		return true;
 	}
+	else { cout << "Hit "; coutName(type); cout << endl; }
+	return false;
 }
+

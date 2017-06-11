@@ -16,5 +16,8 @@ public:
 	int check(int, int);
 	void revealAdj(int, int);
 	void displayLine(int);
-	bool setVisible(int, int, int,Effect);
+	bool setVisible(int, int, int,Effect,Effect);
+	int getShipOnPos(int x, int y);
+	char checkChar(int,int)const;
+	void reverse(int,int);
 };

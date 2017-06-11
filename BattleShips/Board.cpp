@@ -239,7 +239,7 @@ void Board::displayLine(int l)
 	}
 	}
 
-bool Board::setVisible(int x,int y,int t,Effect e)
+bool Board::setVisible(int x,int y,int t,Effect e,Effect e2)
 {
 	bool b = true;
 	if (t != 0 && t != 6) {
@@ -253,11 +253,25 @@ bool Board::setVisible(int x,int y,int t,Effect e)
 		fVisible[y][x] = 'O';
 		b = false;
 	}
-	if (e == HIGH_MISS && (rand() % 100) > 29) {
+	if (e2 == HIGH_MISS && (rand() % 100) > 29) {
 		fVisible[y][x] = '@';
 		b = false;
 	}
-	if (t == Carrier) {}
 	return b;
+}
+
+int Board::getShipOnPos(int x, int y)
+{
+	return f[y][x];
+}
+
+char Board::checkChar(int x,int y) const
+{
+	return fVisible[y][x];
+}
+
+void Board::reverse(int x, int y)
+{
+	fVisible[y][x] = '.';
 }
 
